@@ -1,0 +1,9 @@
+[package]
+name = "solana-cloned-validator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+solana-test-validator = "2.0.2"
+solana-sdk = "2.0.2"
+solana-rpc = "2.0.2"
