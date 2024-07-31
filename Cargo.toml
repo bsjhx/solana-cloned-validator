@@ -7,3 +7,12 @@ edition = "2021"
 solana-test-validator = "2.0.2"
 solana-sdk = "2.0.2"
 solana-rpc = "2.0.2"
+spl-token-client = "0.11.0"
+
+[lib]
+name = "solana_cloned_validator"
+path = "src/lib.rs"
+
+[[bin]]
+name = "solana-cloned-validator-bin"
+path = "src/main.rs"
