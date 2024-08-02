@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "Pubkey"
-    ]
+    ],
+    "editor.formatOnSave": true
 }

@@ -4621,6 +4621,7 @@ dependencies = [
 name = "solana-cloned-validator"
 version = "0.1.0"
 dependencies = [
+ "solana-client",
  "solana-rpc",
  "solana-sdk",
  "solana-test-validator",
