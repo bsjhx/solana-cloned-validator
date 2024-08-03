@@ -35,10 +35,13 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install clippy
+      - name: Install Clippy
         run: rustup component add clippy
 
-      - name: Run clippy
+      - name: Install Protoc
+        run: sudo apt-get install -y protobuf-compiler
+
+      - name: Run Clippy
         run: cargo clippy -- -D warnings
 
   test:
@@ -52,5 +55,8 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Run tests
+      - name: Install Protoc
+        run: sudo apt-get install -y protobuf-compiler
+
+      - name: Run Tests
         run: cargo test --all
