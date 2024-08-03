@@ -17,3 +17,6 @@ path = "src/lib.rs"
 [[bin]]
 name = "solana-cloned-validator-bin"
 path = "src/main.rs"
+
+[profile.dev]
+incremental = true
