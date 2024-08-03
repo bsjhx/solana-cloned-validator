@@ -1,4 +1,4 @@
-name: Rust codereview CI
+name: Rust code review CI
 
 on:
   push:
