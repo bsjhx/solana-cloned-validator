@@ -18,6 +18,11 @@ fn test_if_solana_node_is_started_and_account_is_cloned() {
     let usdc_account = rpc_client.get_account(&usdc_pubkey);
 
     assert!(usdc_account.is_ok());
+
+    let metaplex_pubkey = Pubkey::from_str("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s").unwrap();
+    let metaplex_account = rpc_client.get_account(&metaplex_pubkey);
+
+    assert!(metaplex_account.is_ok());
 }
 
 #[test]
