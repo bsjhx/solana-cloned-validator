@@ -5,7 +5,11 @@ mod cli;
 
 fn main() {
     let mut test_validator = create_validator_genesis(Some(8899));
-    add_accounts_to(&mut test_validator, "");
+
+    match add_accounts_to(&mut test_validator, "") {
+        Ok(_) => println!("Adding account finished. All files processed."),
+        Err(err) => eprintln!("Couldn't add all files. Reason: {err:?}"),
+    }
 
     let (test_validator, _k) = test_validator.start();
 

@@ -1,11 +1,9 @@
 use std::{
-    fs::{self, FileTimes},
+    fs::{self},
     path::Path,
-    str::FromStr,
 };
 
 use solana_rpc::rpc::JsonRpcConfig;
-use solana_sdk::pubkey::Pubkey;
 use solana_test_validator::{AccountInfo, TestValidatorGenesis};
 
 pub fn create_validator_genesis(port: Option<u16>) -> TestValidatorGenesis {
@@ -21,7 +19,10 @@ pub fn create_validator_genesis(port: Option<u16>) -> TestValidatorGenesis {
     test_validator
 }
 
-pub fn add_accounts_to(test_validator: &mut TestValidatorGenesis, path: &str) {
+pub fn add_accounts_to<'a>(
+    test_validator: &'a mut TestValidatorGenesis,
+    path: &'a str,
+) -> Result<&'a mut TestValidatorGenesis, String> {
     let path = Path::new(path);
 
     if !path.exists() || !path.is_dir() {
@@ -36,7 +37,7 @@ pub fn add_accounts_to(test_validator: &mut TestValidatorGenesis, path: &str) {
             err
         ),
     };
-    let avec: Vec<AccountInfo> = files
+    let accounts_to_add: Vec<AccountInfo> = files
         .into_iter()
         .map(|file_path| AccountInfo {
             address: None,
@@ -44,20 +45,17 @@ pub fn add_accounts_to(test_validator: &mut TestValidatorGenesis, path: &str) {
         })
         .collect();
 
-    let a = test_validator.add_accounts_from_json_files(&avec);
-    println!("ddd");
+    test_validator.add_accounts_from_json_files(&accounts_to_add)
 }
 
 fn get_files_path_from(path: &Path) -> std::io::Result<Vec<String>> {
     let mut files_path = vec![];
 
-    for entry in fs::read_dir(path)? {
-        if let Ok(entry) = entry {
-            let path = entry.path();
-            if path.is_file() {
-                if let Some(path_str) = path.to_str() {
-                    files_path.push(path_str.to_string());
-                }
+    for entry in (fs::read_dir(path)?).flatten() {
+        let path = entry.path();
+        if path.is_file() {
+            if let Some(path_str) = path.to_str() {
+                files_path.push(path_str.to_string());
             }
         }
     }
